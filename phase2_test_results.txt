@@ -1,0 +1,89 @@
+]633;E;for f in tests/tc*.txt\x3b do echo "===== $f ====="\x3b ./vco.exe "$f" 2>&1 | grep -E "Original interpreter|Optimized interpreter|Semantic equivalence|Instruction counts|Overall reduction|Lexical error|Optimization warning"\x3b done > phase2_test_results.txt;5f281dd1-cada-4539-90ce-919dfc1c5748]633;C===== tests/tc01.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=11, after DAG=5, after peephole=5
+Overall reduction: 54.5%
+===== tests/tc02.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=9, after DAG=4, after peephole=4
+Overall reduction: 55.6%
+===== tests/tc03.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=7, after DAG=3, after peephole=3
+Overall reduction: 57.1%
+===== tests/tc04.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=2, after DAG=1, after peephole=1
+Overall reduction: 50.0%
+===== tests/tc05.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+===== tests/tc06.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=15, after DAG=10, after peephole=10
+Overall reduction: 33.3%
+===== tests/tc07.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=10, after DAG=9, after peephole=9
+Overall reduction: 10.0%
+===== tests/tc08.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=5, after DAG=3, after peephole=3
+Overall reduction: 40.0%
+===== tests/tc09.txt =====
+Optimization warning (line 1): division by zero not folded
+Optimization warning (line 1): division by zero not folded
+Original interpreter: FAIL
+Optimized interpreter: FAIL
+Semantic equivalence: NOT CHECKED (both executions hit a runtime error)
+Instruction counts: before=2, after DAG=1, after peephole=1
+Overall reduction: 50.0%
+===== tests/tc10.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+===== tests/tc11.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=1, after DAG=1, after peephole=1
+Overall reduction: 0.0%
+===== tests/tc12.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=7, after DAG=7, after peephole=7
+Overall reduction: 0.0%
+===== tests/tc13.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+===== tests/tc14_bad.txt =====
+Lexical error (line 1): unexpected character '@'
+Lexical error (line 2): unexpected character '#'
+===== tests/tc15.txt =====
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=12, after DAG=8, after peephole=8
+Overall reduction: 33.3%

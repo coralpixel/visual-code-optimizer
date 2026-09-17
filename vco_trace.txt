@@ -1,0 +1,9 @@
+--- Process 22364 created
+--- Process 22364 loaded C:\Windows\System32\ntdll.dll at 00007ffed22c0000
+--- Process 22364 loaded C:\Windows\System32\kernel32.dll at 00007ffed1ab0000
+--- Process 22364 loaded C:\Windows\System32\KernelBase.dll at 00007ffecf830000
+--- Process 22364 loaded C:\Windows\System32\ucrtbase.dll at 00007ffecf610000
+--- Process 22364 thread 17336 created
+--- Process 22364, exception c00000fd at 00007ff61b0c8f56
+--- Process 22364 thread 13232 exited with status 0xc00000fd
+--- Process 22364 exited with status 0xc00000fd

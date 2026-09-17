@@ -1,0 +1,7 @@
+digraph DAG {
+n0 [label="3"];
+n1 [label="4"];
+n2 [label="7\n[t1]"];
+n3 [label="2"];
+n4 [label="14\n[t2,a]"];
+}

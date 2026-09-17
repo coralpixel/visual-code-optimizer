@@ -1,0 +1,7 @@
+if (p > q) {
+    r = p * q + 1;
+    s = p * q - 1;
+} else {
+    r = p + q;
+    s = p + q;
+}

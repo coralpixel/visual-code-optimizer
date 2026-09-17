@@ -1,0 +1,7 @@
+digraph DAG {
+n0 [label="a"];
+n1 [label="1"];
+n2 [label="+\n[t5,b]"];
+n2 -> n0;
+n2 -> n1;
+}

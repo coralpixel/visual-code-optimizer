@@ -1,0 +1,5 @@
+#include <stdio.h>
+#include <string.h>
+#include "viz.h"
+int emit_cfg_dot(const Quad*q,const CFG*cfg,const char*path){FILE*f=fopen(path,"w");if(!f)return 0;fprintf(f,"digraph CFG {\nrankdir=TB;\n");for(int b=0;b<cfg->count;b++){fprintf(f,"B%d [shape=box,label=\"B%d\\l",b,b);for(int i=cfg->blocks[b].start;i<=cfg->blocks[b].end;i++)fprintf(f,"%s %s %s %s\\l",q[i].op,q[i].arg1,q[i].arg2,q[i].result);fprintf(f,"\"];\n");for(int j=0;j<cfg->blocks[b].nsucc;j++)fprintf(f,"B%d -> B%d;\n",b,cfg->blocks[b].succ[j]);}fprintf(f,"}\n");fclose(f);return 1;}
+int emit_dag_dot(const DAG*d,const char*path){FILE*f=fopen(path,"w");if(!f)return 0;fprintf(f,"digraph DAG {\n");for(int i=0;i<d->count;i++){DagNode*n=d->nodes[i];fprintf(f,"n%d [label=\"",i);if(n->kind==LEAF_VAR)fprintf(f,"%s",n->name);else if(n->kind==LEAF_CONST)fprintf(f,"%g",n->const_val);else fprintf(f,"%s",n->op);if(n->label_count){fprintf(f,"\\n[");for(int j=0;j<n->label_count;j++)fprintf(f,"%s%s",j?",":"",n->labels[j]);fprintf(f,"]");}fprintf(f,"\"];\n");if(n->left)fprintf(f,"n%d -> n%d;\n",i,n->left->id);if(n->right)fprintf(f,"n%d -> n%d;\n",i,n->right->id);}fprintf(f,"}\n");fclose(f);return 1;}

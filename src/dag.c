@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "dag.h"
+typedef struct {char name[32];DagNode*node;} Bind;
+static DagNode* newnode(DAG*d,NodeKind k){if(d->count>=MAX_DAG_NODES)return NULL;DagNode*n=calloc(1,sizeof(*n));n->id=d->count;n->kind=k;d->nodes[d->count++]=n;return n;}
+static int isnum(const char*s,double*v){char*e;double x=strtod(s,&e);if(e==s||*e)return 0;*v=x;return 1;}
+static DagNode* entry_leaf(DAG*d,const char*s){for(int i=0;i<d->count;i++)if(d->nodes[i]->kind==LEAF_VAR&&!strcmp(d->nodes[i]->name,s))return d->nodes[i];DagNode*n=newnode(d,LEAF_VAR);snprintf(n->name,32,"%s",s);return n;}
+static DagNode* const_leaf(DAG*d,const char*s){double v;isnum(s,&v);for(int i=0;i<d->count;i++)if(d->nodes[i]->kind==LEAF_CONST&&d->nodes[i]->const_val==v)return d->nodes[i];DagNode*n=newnode(d,LEAF_CONST);n->const_val=v;snprintf(n->name,32,"%s",s);return n;}
+static DagNode* lookup(DAG*d,Bind*b,int nb,const char*s){double v;if(isnum(s,&v))return const_leaf(d,s);for(int i=0;i<nb;i++)if(!strcmp(b[i].name,s))return b[i].node;DagNode*n=entry_leaf(d,s);if(nb<1024){strcpy(b[nb].name,s);b[nb].node=n;}return n;}
+static void setbind(Bind*b,int*nb,const char*s,DagNode*n){for(int i=0;i<*nb;i++)if(!strcmp(b[i].name,s)){b[i].node=n;return;}if(*nb<1024){strcpy(b[*nb].name,s);b[*nb].node=n;(*nb)++;}}
+static void detach(DAG*d,const char*s){for(int i=0;i<d->count;i++){DagNode*n=d->nodes[i];for(int j=0;j<n->label_count;j++)if(!strcmp(n->labels[j],s)){for(int k=j;k<n->label_count-1;k++)strcpy(n->labels[k],n->labels[k+1]);n->label_count--;j--;}}}
+static DagNode* findop(DAG*d,const char*op,DagNode*a,DagNode*b){for(int i=0;i<d->count;i++){DagNode*n=d->nodes[i];if(n->kind==INTERIOR&&!strcmp(n->op,op)&&n->left==a&&n->right==b)return n;}return NULL;}
+static int foldable(const char*op){return !strcmp(op,"+")||!strcmp(op,"-")||!strcmp(op,"*")||!strcmp(op,"/");}
+static double fold(const char*op,double a,double b){if(!strcmp(op,"+"))return a+b;if(!strcmp(op,"-"))return a-b;if(!strcmp(op,"*"))return a*b;return a/b;}
+void dag_build(const Quad*q,int start,int end,DAG*d){memset(d,0,sizeof(*d));Bind bind[1024];int nb=0;for(int i=start;i<=end;i++){if(strcmp(q[i].op,"=")!=0&&strcmp(q[i].op,"+")!=0&&strcmp(q[i].op,"-")!=0&&strcmp(q[i].op,"*")!=0&&strcmp(q[i].op,"/")!=0)continue;DagNode*a=lookup(d,bind,nb,q[i].arg1),*b=NULL,*n=NULL;if(!q[i].arg2[0])n=a;else{b=lookup(d,bind,nb,q[i].arg2);if(a->kind==LEAF_CONST&&b->kind==LEAF_CONST&&foldable(q[i].op)&&strcmp(q[i].op,"/")==0&&b->const_val==0){fprintf(stderr,"Optimization warning (line %d): division by zero not folded\n",q[i].line);n=findop(d,q[i].op,a,b);if(!n){n=newnode(d,INTERIOR);strcpy(n->op,q[i].op);n->left=a;n->right=b;}}else if(a->kind==LEAF_CONST&&b->kind==LEAF_CONST&&foldable(q[i].op)){double v=fold(q[i].op,a->const_val,b->const_val);char buf[32];snprintf(buf,32,"%.17g",v);n=const_leaf(d,buf);}else{n=findop(d,q[i].op,a,b);if(!n){n=newnode(d,INTERIOR);strcpy(n->op,q[i].op);n->left=a;n->right=b;}}}detach(d,q[i].result);if(n&&n->label_count<MAX_LABELS)strcpy(n->labels[n->label_count++],q[i].result);setbind(bind,&nb,q[i].result,n);}}
+void dag_free(DAG*d){for(int i=0;i<d->count;i++)free(d->nodes[i]);d->count=0;}
+void dump_dag(const DAG*d){printf("--- DAG (%d nodes) ---\n",d->count);for(int i=0;i<d->count;i++){DagNode*n=d->nodes[i];printf("n%d: ",n->id);if(n->kind==LEAF_VAR)printf("VAR %s",n->name);else if(n->kind==LEAF_CONST)printf("CONST %g",n->const_val);else printf("(%s n%d n%d)",n->op,n->left->id,n->right->id);if(n->label_count){printf(" labels:");for(int j=0;j<n->label_count;j++)printf(" %s",n->labels[j]);}printf("\n");}printf("\n");}

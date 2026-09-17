@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tacgen.h"
+static Quad*Q;static int nq,nt,nlab;
+static char *dupstr(const char*s){char*p=malloc(strlen(s)+1);strcpy(p,s);return p;}
+static void emit(const char*op,const char*a,const char*b,const char*r,int line){if(nq>=MAX_QUADS)return;snprintf(Q[nq].op,8,"%s",op);snprintf(Q[nq].arg1,32,"%s",a?a:"");snprintf(Q[nq].arg2,32,"%s",b?b:"");snprintf(Q[nq].result,32,"%s",r?r:"");Q[nq++].line=line;}
+static char *fresh(const char*p){char*s=malloc(32);snprintf(s,32,"%s%d",p, p[0]=='t'?++nt:++nlab);return s;}
+static char* gen_expr(const ASTNode*n){if(!n)return dupstr("0");if(n->kind==AST_ID||n->kind==AST_NUM)return dupstr(n->text);if(n->kind==AST_BINOP&&strcmp(n->text,"neg")==0){char*a=gen_expr(n->left),*t=fresh("t");emit("-", "0",a,t,n->line);free(a);return t;}char*a=gen_expr(n->left),*b=gen_expr(n->right),*t=fresh("t");emit(n->text,a,b,t,n->line);free(a);free(b);return t;}
+static void gen_stmt(const ASTNode*n){for(;n;n=n->next){if(n->kind==AST_ASSIGN){char*a=gen_expr(n->left);emit("=",a,"",n->text,n->line);free(a);}else if(n->kind==AST_BLOCK){gen_stmt(n->left);}else if(n->kind==AST_IF){char *c=gen_expr(n->left),*lthen=fresh("L"),*lend=fresh("L");emit("if",c,"",lthen,n->line);free(c);if(n->third){gen_stmt(n->third);emit("goto","","",lend,n->line);emit("label","","",lthen,n->line);gen_stmt(n->right);emit("label","","",lend,n->line);}else{emit("goto","","",lend,n->line);emit("label","","",lthen,n->line);gen_stmt(n->right);emit("label","","",lend,n->line);}}else if(n->kind==AST_WHILE){char*lh=fresh("L"),*lbody=fresh("L"),*lend=fresh("L");emit("label","","",lh,n->line);char*c=gen_expr(n->left);emit("if",c,"",lbody,n->line);free(c);emit("goto","","",lend,n->line);emit("label","","",lbody,n->line);gen_stmt(n->right);emit("goto","","",lh,n->line);emit("label","","",lend,n->line);}}}
+int generate_tac(const ASTNode*ast,Quad*out){Q=out;nq=0;nt=0;nlab=0;gen_stmt(ast);return nq;}
+void dump_quads(const Quad*q,int n,const char*title){int i;printf("--- %s (%d instructions) ---\n",title,n);for(i=0;i<n;i++){if(!strcmp(q[i].op,"label"))printf("%3d: %s:\n",i,q[i].result);else if(!strcmp(q[i].op,"goto"))printf("%3d: GOTO %s\n",i,q[i].result);else if(!strcmp(q[i].op,"if"))printf("%3d: IF %s GOTO %s\n",i,q[i].arg1,q[i].result);else if(!strcmp(q[i].op,"="))printf("%3d: %s = %s\n",i,q[i].result,q[i].arg1);else printf("%3d: %s = %s %s %s\n",i,q[i].result,q[i].arg1,q[i].op,q[i].arg2);}printf("\n");}
