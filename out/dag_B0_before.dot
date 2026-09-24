@@ -1,7 +1,13 @@
 digraph DAG {
 n0 [label="3"];
-n1 [label="4"];
-n2 [label="7\n[t1]"];
+n1 [label="4\n[t6,c]"];
+n2 [label="12\n[t1]"];
 n3 [label="2"];
 n4 [label="14\n[t2,a]"];
+n5 [label="5\n[t3]"];
+n6 [label="20\n[t4,b]"];
+n7 [label="10\n[t5]"];
+n8 [label="80\n[t7]"];
+n9 [label="94\n[t8]"];
+n10 [label="84\n[t9,d]"];
 }

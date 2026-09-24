@@ -1,0 +1,29 @@
+TEST                      RESULT
+------------------------- -------------------------
+tests/tc01.txt            PASS
+tests/tc02.txt            PASS
+tests/tc03.txt            PASS
+tests/tc04.txt            PASS
+tests/tc05.txt            PASS
+tests/tc06.txt            PASS
+tests/tc07.txt            PASS
+tests/tc08.txt            PASS
+tests/tc09.txt            EXPECTED RUNTIME GUARD
+tests/tc10.txt            PASS
+tests/tc11.txt            PASS
+tests/tc12.txt            PASS
+tests/tc13.txt            PASS
+tests/tc14_bad.txt        EXPECTED LEXICAL ERROR
+tests/tc15.txt            PASS
+tests/tc16.txt            PASS
+tests/tc17.txt            PASS
+tests/tc18.txt            PASS
+tests/tc19.txt            PASS
+tests/tc20.txt            PASS
+tests/tc21.txt            PASS
+tests/tc22.txt            PASS
+tests/tc23_bad.txt        EXPECTED LEXICAL ERROR
+tests/tc24_bad.txt        EXPECTED SYNTAX ERROR
+tests/tc25.txt            PASS
+tests/tc26.txt            EXPECTED RUNTIME GUARD
+tests/tc27.txt            PASS

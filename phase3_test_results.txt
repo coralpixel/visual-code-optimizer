@@ -1,0 +1,239 @@
+]633;E;{   for f in tests/tc*.txt\x3b do     echo "========================================"\x3b     echo "TEST: $f"\x3b     echo "========================================"\x3b      ./vco.exe "$f" 2>&1 | grep -E       "Lexical error|Parse error|Parsing failed|Optimization warning|Original interpreter|Optimized interpreter|Semantic equivalence|Instruction counts|Overall reduction"\x3b      echo\x3b   done\x3b } > phase3_test_results.txt;2fa6f661-f8b3-498d-841b-fc464f08113d]633;C========================================
+TEST: tests/tc01.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=11, after DAG=5, after peephole=5
+Overall reduction: 54.5%
+
+========================================
+TEST: tests/tc02.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=9, after DAG=4, after peephole=4
+Overall reduction: 55.6%
+
+========================================
+TEST: tests/tc03.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=7, after DAG=3, after peephole=3
+Overall reduction: 57.1%
+
+========================================
+TEST: tests/tc04.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=2, after DAG=1, after peephole=1
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc05.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc06.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=15, after DAG=10, after peephole=10
+Overall reduction: 33.3%
+
+========================================
+TEST: tests/tc07.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=10, after DAG=9, after peephole=9
+Overall reduction: 10.0%
+
+========================================
+TEST: tests/tc08.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=5, after DAG=3, after peephole=3
+Overall reduction: 40.0%
+
+========================================
+TEST: tests/tc09.txt
+========================================
+Optimization warning (line 1): division by zero not folded
+Optimization warning (line 1): division by zero not folded
+Original interpreter: FAIL
+Optimized interpreter: FAIL
+Semantic equivalence: NOT CHECKED (both executions hit a runtime error)
+Instruction counts: before=2, after DAG=1, after peephole=1
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc10.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc11.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=1, after DAG=1, after peephole=1
+Overall reduction: 0.0%
+
+========================================
+TEST: tests/tc12.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=7, after DAG=7, after peephole=7
+Overall reduction: 0.0%
+
+========================================
+TEST: tests/tc13.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc14_bad.txt
+========================================
+Lexical error (line 1): unexpected character '@'
+Lexical error (line 2): unexpected character '#'
+
+========================================
+TEST: tests/tc15.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=12, after DAG=8, after peephole=8
+Overall reduction: 33.3%
+
+========================================
+TEST: tests/tc16.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=3, after DAG=2, after peephole=2
+Overall reduction: 33.3%
+
+========================================
+TEST: tests/tc17.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=1, after peephole=1
+Overall reduction: 75.0%
+
+========================================
+TEST: tests/tc18.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=8, after DAG=8, after peephole=8
+Overall reduction: 0.0%
+
+========================================
+TEST: tests/tc19.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=10, after DAG=9, after peephole=9
+Overall reduction: 10.0%
+
+========================================
+TEST: tests/tc20.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=4, after DAG=2, after peephole=2
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc21.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=6, after DAG=3, after peephole=3
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc22.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=6, after DAG=3, after peephole=3
+Overall reduction: 50.0%
+
+========================================
+TEST: tests/tc23_bad.txt
+========================================
+Lexical error (line 2): unexpected character '@'
+Lexical error (line 3): unexpected character '#'
+
+========================================
+TEST: tests/tc24_bad.txt
+========================================
+Parse error (line 2): expected ;, got IDENTIFIER (b)
+Parse error (line 3): expected ), got LBRACE ({)
+Parsing failed.
+
+========================================
+TEST: tests/tc25.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=26, after DAG=20, after peephole=20
+Overall reduction: 23.1%
+
+========================================
+TEST: tests/tc26.txt
+========================================
+Optimization warning (line 2): division by zero not folded
+Optimization warning (line 2): division by zero not folded
+Original interpreter: FAIL
+Optimized interpreter: FAIL
+Semantic equivalence: NOT CHECKED (both executions hit a runtime error)
+Instruction counts: before=5, after DAG=3, after peephole=3
+Overall reduction: 40.0%
+
+========================================
+TEST: tests/tc27.txt
+========================================
+Original interpreter: PASS
+Optimized interpreter: PASS
+Semantic equivalence: PASS
+Instruction counts: before=13, after DAG=4, after peephole=4
+Overall reduction: 69.2%
+

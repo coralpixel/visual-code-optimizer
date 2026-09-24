@@ -1,11 +1,4 @@
 digraph CFG {
 rankdir=TB;
-B0 [shape=box,label="B0\l+ 3 4 t1\l* t1 2 t2\l= t2  a\l> a 5 t3\lif t3  L1\l"];
-B0 -> B2;
-B0 -> B1;
-B1 [shape=box,label="B1\l- a 1 t4\l= t4  b\lgoto   L2\l"];
-B1 -> B3;
-B2 [shape=box,label="B2\llabel   L1\l+ a 1 t5\l= t5  b\l"];
-B2 -> B3;
-B3 [shape=box,label="B3\llabel   L2\l"];
+B0 [shape=box,label="B0\l* 3 4 t1\l+ 2 t1 t2\l= t2  a\l+ 2 3 t3\l* t3 4 t4\l= t4  b\l/ b 2 t5\l- a t5 t6\l= t6  c\l* b c t7\l+ a t7 t8\l- t8 10 t9\l= t9  d\l"];
 }

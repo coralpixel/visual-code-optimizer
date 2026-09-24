@@ -1,0 +1,36 @@
+PHASE 3 AGGREGATE TESTING RESULTS
+=================================
+
+Total test cases: 27
+
+Valid functional/optimization tests: 22
+Lexical-error tests: 2
+Syntax-error tests: 1
+Runtime-error safety tests: 2
+
+Valid tests with semantic equivalence PASS: 22/22
+
+Original TAC instructions across valid tests: 171
+Final optimized instructions across valid tests: 109
+Instructions eliminated: 62
+
+Overall weighted instruction reduction: 36.3%
+
+Highest individual reductions:
+TC17: 75.0%
+TC27: 69.2%
+TC03: 57.1%
+TC02: 55.6%
+TC01: 54.5%
+
+Error-handling validation:
+TC14: Multiple lexical errors detected
+TC23: Multiple lexical errors detected
+TC24: Syntax errors detected
+TC09: Division-by-zero protection verified
+TC26: Division-by-zero protection verified
+
+Conclusion:
+All 22 valid functional and optimization tests passed semantic-equivalence
+verification. The optimizer reduced the total TAC instruction count from
+171 to 109, giving a weighted overall reduction of 36.3%.
